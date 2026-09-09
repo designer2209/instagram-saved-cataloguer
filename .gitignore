@@ -1,0 +1,16 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Never commit secrets
+*.key
+.env
+.env.*
+
+# Local build/output
+node_modules/
+dist/
+*.zip
