@@ -1,0 +1,71 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  body { width: 320px; margin: 0; padding: 14px; font: 13px/1.45 system-ui, sans-serif; color: #111; }
+  h1 { font-size: 14px; margin: 0 0 10px; }
+  .step { font-weight: 700; font-size: 12px; margin: 14px 0 4px; color: #333; }
+  label { display: block; margin: 8px 0 3px; font-weight: 600; font-size: 12px; }
+  input, select { width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #ccc; border-radius: 6px; }
+  button { width: 100%; margin-top: 6px; padding: 8px; border: 0; border-radius: 6px; cursor: pointer; background: #3897f0; color: #fff; font-size: 13px; }
+  button.secondary { background: #eee; color: #111; }
+  button.danger { background: #f3dede; color: #8a1f1f; }
+  .row { display: flex; gap: 6px; }
+  .row button, .row input { flex: 1; }
+  #status { margin-top: 12px; padding: 8px; background: #f5f5f5; border-radius: 6px; min-height: 32px; font-size: 12px; white-space: pre-wrap; }
+  .hint { color: #777; font-size: 11px; margin-top: 2px; }
+</style>
+
+<h1>Saved Posts Cataloguer</h1>
+
+<label>Provider</label>
+<select id="provider">
+  <option value="https://generativelanguage.googleapis.com/v1beta/openai">Google Gemini</option>
+  <option value="https://api.groq.com/openai/v1">Groq</option>
+  <option value="https://openrouter.ai/api/v1">OpenRouter</option>
+  <option value="https://api.openai.com/v1">OpenAI</option>
+  <option value="https://api.together.xyz/v1">Together</option>
+  <option value="https://api.cerebras.ai/v1">Cerebras</option>
+  <option value="__custom__">Something else</option>
+</select>
+
+<label>Web address (fills in automatically)</label>
+<input id="baseurl" type="text" placeholder="https://…/v1">
+
+<label>Your API key</label>
+<input id="key" type="password" placeholder="paste your key (stays on your device)">
+
+<label>Model</label>
+<input id="model" type="text" placeholder="gemini-3.5-flash-lite">
+<div class="hint">Must be a model that can read images. Gemini free pick: gemini-3.5-flash-lite (500/day).</div>
+
+<div class="row">
+  <button id="test" class="secondary">Check my settings</button>
+  <button id="save" class="secondary">Save</button>
+</div>
+
+<div class="step">Step 1: Find your saved posts</div>
+<label>How many to find (leave blank for all)</label>
+<input id="findlimit" type="number" min="1" placeholder="all">
+<button id="harvest">Find my saved posts</button>
+<button id="pauseFind" class="secondary">Pause finding</button>
+
+<div class="step">Step 2: Read and catalog them</div>
+<label>How many to do at a time</label>
+<input id="batch" type="number" value="20" min="1">
+<button id="test20" class="secondary">Try the first <span class="bn">20</span> (starts fresh)</button>
+<button id="next">Do the next <span class="bn">20</span></button>
+<button id="process">Do the rest</button>
+<button id="pause" class="secondary">Pause</button>
+<button id="retry" class="secondary">Retry the ones that failed</button>
+
+<div class="step">Step 3: Get your catalog</div>
+<div class="row">
+  <button id="downloadHtml">Open visual page</button>
+  <button id="download" class="secondary">Download spreadsheet</button>
+</div>
+
+<button id="reset" class="danger">Start over (clears everything)</button>
+
+<div id="status">Pick a provider, paste your key, then find your saved posts.</div>
+
+<script src="popup.js"></script>

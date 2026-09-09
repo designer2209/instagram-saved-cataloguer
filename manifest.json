@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Instagram Saved Cataloguer",
+  "version": "0.6.1",
+  "description": "Harvests your Instagram saved posts, reads each with any vision model (Gemini, Groq, OpenRouter, OpenAI, ...), and exports a catalog CSV plus a visual HTML view.",
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.instagram.com/*",
+    "https://*.cdninstagram.com/*",
+    "https://*.fbcdn.net/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.instagram.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
